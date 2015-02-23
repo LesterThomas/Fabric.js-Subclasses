@@ -8,7 +8,7 @@ This creates a standard diagram if a platform, with North-bound SOA interfaces a
 
 The JSON document to create this test platform is:
 
-'''
+```
 {
   "objects": [
     {
@@ -54,5 +54,5 @@ The JSON document to create this test platform is:
   ],
   "background": ""
 }
-'''
+```
 

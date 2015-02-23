@@ -11,7 +11,7 @@ Here is a screen-shot of an example service
 
 The JSON document to create this test service is:
 
-'''
+```
 {
   "objects": [
     {
@@ -39,5 +39,5 @@ The JSON document to create this test service is:
   ],
   "background": ""
 }
-'''
+```
 
