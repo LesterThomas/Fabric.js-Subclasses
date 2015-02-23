@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<body>
+	
+	<p>
+	<table >
+	<tr>
+	<td >
+	<canvas id="c" width="1000" height="800"></canvas>
+	</td>
+	<td >
+	<textarea id="JSONtext" border="1" rows="40" cols="58"></textarea>
+	</td>
+	</tr>
+	</table>
+	<script src='https://code.jquery.com/jquery-1.11.2.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.4.0/fabric.min.js'></script>
+	<script src="js/interface.js"></script>
+	<script>
+	var queryString = window.location.search;
+	queryString = queryString.substring(1);
+	if (queryString=='') {
+		alert('Add JSON file to end of query. e.g.   loadFile.html?TestInterface.json');
+		}
+	else {
+		
+		$.getJSON( queryString, function( data ) {
+			var textArea=document.getElementById("JSONtext");
+
+			var jsonPretty = JSON.stringify(data,null,2); 
+			textArea.value=jsonPretty;		
+			var canvas = new fabric.Canvas('c');
+			canvas.loadFromJSON(data, canvas.renderAll.bind(canvas));
+			
+			canvas.on('mouse:down', function(options ) {
+  
+			  if (options.target) {
+				console.log('an object was clicked! ', options.target.type);
+				options.target.mouseDownFunct();
+				canvas.renderAll();
+			  }
+  
+});
+			});
+		}
+	</script>
+
+</body>
+</html>

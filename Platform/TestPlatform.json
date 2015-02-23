@@ -1,0 +1,11 @@
+{"objects":
+[{"type":"platform", "name":"Test Platform", 
+"northboundInterfaces":[{"name":"Test service 1", "operations":[
+{"name":"Get Test Operation", "status":"Candidate" }, 
+{"name":"Set Test Operation", "status":"Production" }]},
+{"name":"Test service 2", "operations":[
+{"name":"Get Test Operation", "status":"Candidate" }, 
+{"name":"Set Test Operation", "status":"Production" }]}],
+"cobraApplications":
+[{"name":"01.01 Test Application"},{"name":"01.02 Test Application"}]}],"background":""}
+

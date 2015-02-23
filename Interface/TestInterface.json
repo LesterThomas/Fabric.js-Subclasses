@@ -1,0 +1,7 @@
+{"objects":
+[{"type":"interface", 
+"name": "testService", "width": 40, "height": 150, "left": 100, "top": 100,  
+ "operations":[{"name":"operation1", "status":"production"},{"name":"operation2", "status":"production"},{"name":"op3", "status":"candidate"}]
+ }],"background":""}
+ 
+
