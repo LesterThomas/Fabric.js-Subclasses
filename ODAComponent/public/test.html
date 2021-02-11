@@ -1,9 +1,10 @@
 <html>
     <script src="javascripts/fabric.min.js"></script>
     <script src="javascripts/ODAComponent.js"></script>
+    <script src="javascripts/interface.js"></script>
 
     <body onload="body_onload();">
-        <canvas id="c" width="600" height="600">
+        <canvas id="c" width="1200" height="1000">
         </canvas>
     </body>
 
@@ -13,14 +14,103 @@
         // create a wrapper around native canvas element (with id="c")
         var canvas = new fabric.Canvas('c');
 
-        var component = new ODAComponent({
+        var component = new fabric.Component({
             left: 0,
             top: 0,
-            width: 400,
-            height: 400
+            width: 700,
+            height: 700,
+            type: "component",
+            coreFunction: {
+                exposedAPIs: [
+                    {
+                        name:"productCatalog",
+                        specification:"https://open-api.tmforum.org/TMF620-ProductCatalog-v4.0.0.swagger.json",
+                        implementation:"productcatalog",
+                        path:"/admin/productCatalogManagement/v2/catalog",
+                        port:8080,
+                        scopes: [
+                            {   
+                                name:"admin"
+                            },{
+                                name:"regular"
+                            }
+                        ]
+                    },{
+                        name:"processFlow",
+                        specification:"https://open-api.tmforum.org/TMF701-ProcessFlow-v4.0.0.swagger.json",
+                        implementation:"camunda",
+                        path:"/camunda",
+                        port:8080
+                    }
+                ],
+                dependentAPIs:[
+                    {
+                        name:"party",
+                        specification:"https://open-api.tmforum.org/TMF632-Party-v4.0.0.swagger.json"
+                    }
+                ]
+            },
+            eventNotification:{
+                publishedEvents:[
+                    {
+                        name:"Catalog",
+                        href:"https://schema.tmforum.org/Product/Catalog.schema.json"
+                    },{
+                        name:"Category",
+                        href:"https://schema.tmforum.org/Product/Category.schema.json"
+                    },{
+                        name:"ProductOffering",
+                        href:"https://schema.tmforum.org/Product/ProductOffering.schema.json"
+                    },{
+                        name:"ProductOfferingPrice",
+                        href:"https://schema.tmforum.org/Product/ProductOfferingPrice.schema.json"
+                    },{
+                        name:"ProductSpecification",
+                        href:"https://schema.tmforum.org/Product/ProductSpecification.schema.json"
+                    },{
+                        name:"Usage",
+                        href:"https://schema.tmforum.org/Product/Usage.schema.json"
+                    }
+                ],
+                subscribedEvents:[
+                    {
+                        name:"ImportJob",
+                        href:"https://schema.tmforum.org/Product/ImportJob.schema.json"
+                    }
+                ]
+            },
+            management:[
+                {
+                    name:"serviceTest",
+                    href:"https://manager.local/healthCheck",
+                    specification:"https://open-api.tmforum.org/TMF653-ServiceTest-v4.0.0.swagger.json"
+                },{
+                    name:"alarm",
+                    href:"https://manager.local/alarm",
+                    specification:"https://open-api.tmforum.org/TMF642-Alarm-v4.0.0.swagger.json"
+                },{
+                    name:"serviceActivationConfiguration",
+                    href:"https://manager.local/serviceConfiguration",
+                    specification:"https://open-api.tmforum.org/TMF640-ServiceActivationConfiguration-v4.0.0.swagger.json"
+                }
+            ],
+            security:[
+                {
+                    name: "roles"
+                },
+                {
+                    name: "securitySchemes",
+                    bearerAuth:{
+                        type:"http",
+                        scheme:"bearer",
+                        bearerFormat:"JWT"
+                    }
+                }
+            ]
         });
-
         canvas.add(component);
+
+
     }
     </script>
 </html>
